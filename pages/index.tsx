@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <div id="root">
+    <div id="root" className='bg-indigo-950'>
       <Navbar />
       <main className={`${inter.className}`}>
         Main content
