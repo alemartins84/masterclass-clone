@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
       <div>
           <Navbar />
-          <main id="root" className='bg-gradient-to-br from-blue-950 to-violet-950'>
+          <main id="root" className='bg-gradient-to-br from-slate-900 to-violet-950'>
               {children}
           </main>
           {/* Optionally add a footer or any other global components here */}
