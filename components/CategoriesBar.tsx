@@ -1,5 +1,8 @@
 // components/CategoriesBar.tsx
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { Category } from '../types/category';
+
 import ArrowRightIcon from './icons/ArrowRightIcon';
 import ArrowLeftIcon from './icons/ArrowLeftIcon';
 import CategoryCard from '../components/CategoryCard';
@@ -29,11 +32,32 @@ const categories = [
     // ... other categories
 ];
 
+
+
 const CategoriesBar: React.FC = () => {
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('/api/admin/categories');
+            const data = await response.json();
+            setCategories(data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            setLoading(false);
+        }
+    };
+
+    fetchCategories();
+  }, []);
   
   const barRef = React.useRef<HTMLDivElement>(null);
   const scrollAmount = 200;  // The amount you want to scroll
-  const duration = 300;      // Duration of the animation in milliseconds
+  const duration = 300;      // Duration of the animation in milliseconds 
 
   const scrollLeft = () => {
     if (barRef.current) {
@@ -62,10 +86,19 @@ const CategoriesBar: React.FC = () => {
           <ArrowRightIcon />
         </button>
       </div>
-      <div ref={barRef} className="flex overflow-x-scroll hide-scrollbar py-2 gap-x-2">    
-        {categories.map((category, idx) => (
-          <CategoryCard key={idx} icon={category.icon} label={category.label} />
-        ))}
+      <div ref={barRef} className="flex overflow-x-scroll hide-scrollbar py-2 gap-x-2">   
+
+      {loading ? (
+            <p>Loading categories...</p>
+        ) : (
+            categories.map((category) => (
+                <CategoryCard 
+                    key={category._id} 
+                    label={category.label} 
+                    iconURL={category.iconURL}
+                />
+            ))
+        )}
       </div>
     </div>
     
