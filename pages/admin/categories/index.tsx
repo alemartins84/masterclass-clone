@@ -1,9 +1,9 @@
-// pages/admin/categories.tsx
+// pages/admin/categories/index.tsx
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import AdminLayout from '../../components/AdminLayout';
-import { Category } from '../../types/category';
+import AdminLayout from '../../../components/AdminLayout';
+import { Category } from '../../../types/category';
 
 const CategoriesAdmin = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -25,7 +25,7 @@ const CategoriesAdmin = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this category?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/admin/categories/${id}`, {
+        const response = await fetch(`/api/categories/${id}`, {
           method: 'DELETE',
         });
 
@@ -59,7 +59,7 @@ const CategoriesAdmin = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('/api/admin/categories');
+        const response = await fetch('/api/categories');
         const data = await response.json();
         setCategories(data);
       } catch (error) {
@@ -83,7 +83,7 @@ const CategoriesAdmin = () => {
         <div className='lg:flex lg:items-center lg:justify-between'>
           <h1 className="text-2xl mb-4">Manage Categories</h1>
           <div className="mb-4">
-            <Link href="/admin/add-category">
+            <Link href="/admin/categories/add-category">
               <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Add New Category
               </button>
@@ -109,7 +109,7 @@ const CategoriesAdmin = () => {
                   <td className="border px-4 py-2">{category.iconURL}</td>
                   <td className="border px-4 py-2">
                     
-                    <Link href={`/admin/edit-category/${category._id}`}>
+                    <Link href={`/admin/categories/edit-category/${category._id}`}>
                       <button className="bg-blue-500 text-white px-4 py-1 rounded">Edit</button>
                     </Link>
                     <button onClick={() => handleDelete(category._id)} 

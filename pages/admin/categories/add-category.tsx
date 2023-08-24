@@ -1,5 +1,6 @@
+// pages/admin/categories/add-category.tsx
 import React, { useState, FormEvent } from 'react';
-import AdminLayout from '../../components/AdminLayout';
+import AdminLayout from '../../../components/AdminLayout';
 import { useRouter } from 'next/router';
 
 const AddCategory = () => {
@@ -17,7 +18,7 @@ const AddCategory = () => {
     };
 
     try {
-      const response = await fetch('/api/admin/categories', {
+      const response = await fetch('/api/categories', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

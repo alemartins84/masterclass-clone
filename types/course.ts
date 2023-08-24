@@ -1,10 +1,12 @@
 // types/course.ts
 
 export interface Course {
-  id: string;
+  _id: string;
   title: string;
   description: string;
-  instructorId: string;
+  imageUrl: string;
+  instructorName: string;
   publishedDate: Date;
-  // ... any other fields you want
+  category: string;
 }
+

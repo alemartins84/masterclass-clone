@@ -6,9 +6,7 @@ const deleteCategory = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'DELETE') {
 
         const { id } = req.query;
-
         const db = await connectToDb();
-
         const collection = db.collection('categories');
 
         await collection.deleteOne({ _id: new ObjectId(id as string) });

@@ -11,29 +11,6 @@ import CategoryIconFood from './icons/CategoryIconFood';  // Assuming you have s
 
 import { smoothScroll } from '../utils/scrollUtils';
 
-const categories = [
-  
-    { icon: <CategoryIconFood />, label: 'Food' },
-    { icon: <CategoryIconFood />, label: 'Arts & Entertainment' },
-    { icon: <CategoryIconFood />, label: 'Music 1' },
-    { icon: <CategoryIconFood />, label: 'Music 2' },
-    { icon: <CategoryIconFood />, label: 'Music 3' },
-    { icon: <CategoryIconFood />, label: 'Music 4' },
-    { icon: <CategoryIconFood />, label: 'Music 5' },
-    { icon: <CategoryIconFood />, label: 'Music 6' },
-    { icon: <CategoryIconFood />, label: 'Music 7' },
-    { icon: <CategoryIconFood />, label: 'Music 8' },
-    { icon: <CategoryIconFood />, label: 'Music 9' },
-    { icon: <CategoryIconFood />, label: 'Music 10' },
-    { icon: <CategoryIconFood />, label: 'Music 11' },
-    { icon: <CategoryIconFood />, label: 'Music 12' },
-
-
-    // ... other categories
-];
-
-
-
 const CategoriesBar: React.FC = () => {
 
   const [categories, setCategories] = useState<Category[]>([]);
@@ -42,7 +19,7 @@ const CategoriesBar: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
         try {
-            const response = await fetch('/api/admin/categories');
+            const response = await fetch('/api/categories');
             const data = await response.json();
             setCategories(data);
             setLoading(false);
@@ -91,13 +68,13 @@ const CategoriesBar: React.FC = () => {
       {loading ? (
             <p>Loading categories...</p>
         ) : (
-            categories.map((category) => (
-                <CategoryCard 
-                    key={category._id} 
-                    label={category.label} 
-                    iconURL={category.iconURL}
-                />
-            ))
+          categories.map((category) => (
+            <CategoryCard 
+              key={category._id} 
+              label={category.label} 
+              iconURL={category.iconURL}
+            />
+          ))
         )}
       </div>
     </div>

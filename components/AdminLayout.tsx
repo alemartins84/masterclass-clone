@@ -14,7 +14,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         <h2 className="text-xl mb-4 font-bold">Admin Panel</h2>
         <ul>
           <li className="mb-2">
-              <a href="/admin/categories" className="block px-4 py-2 hover:bg-gray-200 rounded">Categories</a>
+            <a href="/admin/categories" className="block px-4 py-2 hover:bg-gray-200 rounded">Categories</a>
+          </li>
+          <li className="mb-2">
+            <a href="/admin/courses" className="block px-4 py-2 hover:bg-gray-200 rounded">Courses</a>
           </li>
           {/* Add more links as needed */}
         </ul>
