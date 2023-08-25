@@ -6,6 +6,7 @@ import Link from 'next/link';
 type CourseCardProps = {
   course: {
     _id: string;
+    slug: String;
     imageUrl: string;
     title: string;
     instructorName: string;
@@ -17,7 +18,7 @@ function CourseCard({ course, isFirst }: CourseCardProps) {
   return (
     <div className="course-card w-full rounded-lg overflow-hidden">
       <div className="relative pb-[56.25%]">  {/* 16:9 Aspect Ratio */}
-        <Link href={`/courses/${course._id}`}>
+        <Link href={`/courses/${course.slug}`}>
           <Image 
             src={course.imageUrl} 
             alt={course.title}

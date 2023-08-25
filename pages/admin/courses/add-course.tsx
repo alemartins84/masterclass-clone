@@ -2,6 +2,8 @@
 import React, { useState, FormEvent } from 'react';
 import AdminLayout from '../../../components/AdminLayout';
 import { useRouter } from 'next/router';
+import slugify from 'slugify';
+
 
 const AddCourse = () => {
   const [title, setTitle] = useState('');
@@ -14,8 +16,16 @@ const AddCourse = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Generate a slug from the title
+    const slug = slugify(title, {
+      lower: true,  // convert to lowercase
+      strict: true  // remove special characters
+    });
+
     const newCourse = {
       title,
+      slug,
       description,
       imageUrl,
       instructorName,

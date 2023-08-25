@@ -3,12 +3,12 @@
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
-import { Course } from '../../types/course';
 import CourseBanner from '../../components/course/CourseBanner';
 
 type CourseProps = {
   initialCourse: {
     _id: string;
+    slug: string;
     title: string;
     instructorName: string;
     description: string;
@@ -17,40 +17,28 @@ type CourseProps = {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params?.id as string;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/courses/${id}`);
+  
+  const slug  = context.params?.slug as string;;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/courses/slug/${slug}`);
   const initialCourse = await res.json();
+  console.log(initialCourse);
   return {
     props: { initialCourse },
   };
 };
 
-
 const SingleCoursePage: React.FC<CourseProps> = ({ initialCourse }) => {
   
-  const [course, setCourse] = useState(initialCourse);
-
-  useEffect(() => {
-    console.log("Course in useEffect: ", course);
-    const fetchData = async () => {
-      if (course && course._id) {
-        const res = await fetch(`/api/courses/${course._id}`);
-        const updatedCourse = await res.json();
-        setCourse(updatedCourse);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array means this useEffect runs once when the component mounts
+  const [course] = useState(initialCourse);
   
   return (
     <div>
       {/* Course Banner */}
       <CourseBanner
-        title={course.title}
-        instructorName={course.instructorName}
-        description={course.description}
-        imageUrl={course.imageUrl}
+        title={course?.title}
+        instructorName={course?.instructorName}
+        description={course?.description}
+        imageUrl={course?.imageUrl}
       />
       
 

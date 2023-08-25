@@ -7,6 +7,7 @@ import { Course } from '../types/course';
 
 
 const Library = () => {
+
   const [courses, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Library = () => {
       <SearchBar 
         placeholder="Search Instructors, Classes, Topics and more" 
         onSearch={(query) => {
-            console.log("User searched for:", query);
+          console.log("User searched for:", query);
             // Here, you can handle the search, like making an API call.
         }}
       />

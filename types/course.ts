@@ -2,6 +2,7 @@
 
 export interface Course {
   _id: string;
+  slug: string;
   title: string;
   description: string;
   imageUrl: string;
