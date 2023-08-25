@@ -29,7 +29,7 @@ const Library = () => {
       <div className='mt-6 pb-2 border-b border-indigo-900'>
         <CategoryBar />
       </div>
-      <div className="container mx-auto px-4 py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* Course Cards go here */}
         {courses.map((course, index) => <CourseCard key={course._id} course={course} isFirst={index === 0} />)}
       </div>

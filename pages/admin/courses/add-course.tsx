@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 const AddCourse = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [imageUrl, setimageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [instructorName, setInstructorName] = useState('');
 
   const router = useRouter();
   const [notification, setNotification] = useState<string | null>(null);
@@ -17,6 +18,7 @@ const AddCourse = () => {
       title,
       description,
       imageUrl,
+      instructorName,
     };
 
     try {
@@ -78,6 +80,19 @@ const AddCourse = () => {
             </textarea>            
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instructorName">
+              Instructor Name
+            </label>
+            <input
+                type="text"
+                id="instructorName"
+                value={instructorName}
+                onChange={(e) => setInstructorName(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Instructor Name"
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageUrl">
               Image URL
             </label>
@@ -85,7 +100,7 @@ const AddCourse = () => {
                 type="text"
                 id="imageUrl"
                 value={imageUrl}
-                onChange={(e) => setimageUrl(e.target.value)}
+                onChange={(e) => setImageUrl(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Enter image URL or path"
             />

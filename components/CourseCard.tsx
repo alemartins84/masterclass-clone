@@ -8,24 +8,28 @@ type CourseCardProps = {
     _id: string;
     imageUrl: string;
     title: string;
+    instructorName: string;
   };
   isFirst: boolean;
 };
 
 function CourseCard({ course, isFirst }: CourseCardProps) {
   return (
-    <div className={`course-card w-full rounded-lg overflow-hidden ${isFirst ? '' : 'ml-4'}`}>
+    <div className="course-card w-full rounded-lg overflow-hidden">
       <div className="relative pb-[56.25%]">  {/* 16:9 Aspect Ratio */}
-        <Image 
-          src={course.imageUrl} 
-          alt={course.title}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-lg"  // Rounded top corners
-        />
+        <Link href={`/courses/${course._id}`}>
+          <Image 
+            src={course.imageUrl} 
+            alt={course.title}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"  // Rounded top corners
+          />
+        </Link>
       </div>
       <div className="pt-4">
-        <h2 className="text-xl text-white font-bold">{course.title}</h2>
+        <h2 className="text-xl text-white font-bold">{course.instructorName}</h2>
+        <h2 className="text-md text-white font-bold">{course.title}</h2>
       </div>
   </div>
   );

@@ -4,7 +4,7 @@ import { connectToDb } from '../../../../utils/mongodb';
 
 const editCourse = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  const { title, description, imageUrl } = req.body;
+  const { title, description, imageUrl, instructorName } = req.body;
 
   try {
     const db = await connectToDb();  // Use the centralized connectToDb function
@@ -12,7 +12,7 @@ const editCourse = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const updatedCourse = await collection.findOneAndUpdate(
       { _id: new ObjectId(id as string) },
-      { $set: { title, description, imageUrl } },
+      { $set: { title, description, imageUrl, instructorName } },
       { returnDocument: 'after' } // Return the updated document
     );
 

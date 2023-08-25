@@ -5,8 +5,8 @@ const postCourse = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const db = await connectToDb();
     const collection = db.collection('courses');
-    const { title, description, imageUrl } = req.body;
-    const courses = await collection.insertOne({ title, description, imageUrl });
+    const { title, description, imageUrl, instructorName } = req.body;
+    const courses = await collection.insertOne({ title, description, imageUrl, instructorName });
     
     res.status(200).json(courses);
   } catch (error) {
