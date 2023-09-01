@@ -19,7 +19,7 @@ type CourseProps = {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   
   const slug  = context.params?.slug as string;;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/courses/slug/${slug}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses/slug/${slug}`);
   const initialCourse = await res.json();
   console.log(initialCourse);
   return {

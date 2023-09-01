@@ -1,26 +1,26 @@
 // components/CourseCard.tsx
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { urlFor} from '../sanity/lib/image';
 import Link from 'next/link';
 
 type CourseCardProps = {
   course: {
     _id: string;
     slug: String;
-    imageUrl: string;
+    imageUrl: any;
     title: string;
     instructorName: string;
   };
-  isFirst: boolean;
 };
 
-function CourseCard({ course, isFirst }: CourseCardProps) {
+function CourseCard({ course }: CourseCardProps) {
   return (
     <div className="course-card w-full rounded-lg overflow-hidden">
       <div className="relative pb-[56.25%]">  {/* 16:9 Aspect Ratio */}
         <Link href={`/courses/${course.slug}`}>
           <Image 
-            src={course.imageUrl} 
+            src={urlFor(imageUrl).width(300).url() || ''}
             alt={course.title}
             layout="fill"
             objectFit="cover"
