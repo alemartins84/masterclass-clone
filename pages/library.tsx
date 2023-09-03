@@ -1,13 +1,12 @@
 // pages/library.tsx
 import { InferGetStaticPropsType } from 'next';
-import sanityClient from '../utils/sanity';
-import axios from '../utils/axiosInstance';
+import { client as sanityClient } from '../sanity/lib/client';
 import SearchBar from '../components/SearchBar';
 import CategoryBar from '../components/CategoriesBar';
 import CourseCard from '../components/CourseCard';
 
 export const getStaticProps = async () => {
-  const courses = await sanityClient.fetch('*[_type == "course"]');
+  const courses = await sanityClient.fetch('*[_type == "course"]{..., image{..., asset->}}');
 
   return {
     props: { courses }, // will be passed to the page component as props

@@ -8,7 +8,7 @@ type CourseCardProps = {
   course: {
     _id: string;
     slug: String;
-    imageUrl: any;
+    image: any;
     title: string;
     instructorName: string;
   };
@@ -18,9 +18,9 @@ function CourseCard({ course }: CourseCardProps) {
   return (
     <div className="course-card w-full rounded-lg overflow-hidden">
       <div className="relative pb-[56.25%]">  {/* 16:9 Aspect Ratio */}
-        <Link href={`/courses/${course.slug}`}>
+        <Link href={`/courses/${course.slug}`} passHref>
           <Image 
-            src={urlFor(imageUrl).width(300).url() || ''}
+            src={urlFor(course.image).width(600).url() || ''}
             alt={course.title}
             layout="fill"
             objectFit="cover"

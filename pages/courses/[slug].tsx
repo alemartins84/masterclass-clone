@@ -1,7 +1,9 @@
 // pages/courses/[id].tsx
 
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
+import { client as sanityClient } from '../../sanity/lib/client';
+
 import { useEffect, useState } from 'react';
 import CourseBanner from '../../components/course/CourseBanner';
 
@@ -16,14 +18,21 @@ type CourseProps = {
   };
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const { slug } = context.params as { slug: string };
   
-  const slug  = context.params?.slug as string;;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses/slug/${slug}`);
-  const initialCourse = await res.json();
-  console.log(initialCourse);
+  // Fetch the course data from Sanity based on the slug
+  const course = await sanityClient.fetch('*[_type == "course" && slug.current == $slug][0]', { slug });
+
+  // If course not found, return a 404 page
+  if (!course) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: { initialCourse },
+    props: { initialCourse: course },
   };
 };
 
