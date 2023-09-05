@@ -1,35 +1,29 @@
 // components/CategoriesBar.tsx
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Category } from '../types/category';
+import { Category } from '../types/sharedTypes';
+import { client as sanityClient } from '../sanity/lib/client';
+
 
 import ArrowRightIcon from './icons/ArrowRightIcon';
 import ArrowLeftIcon from './icons/ArrowLeftIcon';
 import CategoryCard from '../components/CategoryCard';
-import CategoryIconFood from './icons/CategoryIconFood';  // Assuming you have separate SVG icon components
-// ... import other icons
 
 import { smoothScroll } from '../utils/scrollUtils';
 
-const CategoriesBar: React.FC = () => {
+
+function CategoriesBar() {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-        try {
-            const response = await fetch('/api/categories');
-            const data = await response.json();
-            setCategories(data);
-            setLoading(false);
-        } catch (error) {
-            console.error("Error fetching categories:", error);
-            setLoading(false);
-        }
-    };
+    sanityClient.fetch('*[_type == "category"]{ ..., icon{asset->{url}} }')
+      .then(data => {
+        setCategories(data);
 
-    fetchCategories();
+      })
+      .catch(error => console.error(error));
   }, []);
   
   const barRef = React.useRef<HTMLDivElement>(null);
@@ -64,18 +58,9 @@ const CategoriesBar: React.FC = () => {
         </button>
       </div>
       <div ref={barRef} className="flex overflow-x-scroll hide-scrollbar py-2 gap-x-2">   
-
-      {loading ? (
-            <p>Loading categories...</p>
-        ) : (
-          categories.map((category) => (
-            <CategoryCard 
-              key={category._id} 
-              label={category.label} 
-              iconURL={category.iconURL}
-            />
-          ))
-        )}
+      {categories.map((category) => (
+        <CategoryCard key={category._id} category={category} />
+      ))}
       </div>
     </div>
     

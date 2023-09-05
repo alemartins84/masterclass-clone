@@ -65,6 +65,32 @@ export default defineType({
       name: 'isActive',
       title: 'Is Active?',
       type: 'boolean'
+    },
+    {
+      name: 'lessons',
+      title: 'Lessons',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'meta',
+              title: 'Meta Information',
+              type: 'object',
+              fields: [
+                {name: 'title', type: 'string'},                
+                {name: 'duration', type: 'string'},
+                {name: 'image', type: 'image', title: 'Thumbnail Image' },
+                // ... other meta fields
+              ]
+            },
+            {name: 'description', type: 'text'},
+            {name: 'videoUrl', type: 'url'},
+            // ... other fields
+          ]
+        }
+      ]
     }
   ]  
 })

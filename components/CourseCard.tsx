@@ -1,26 +1,27 @@
 // components/CourseCard.tsx
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { urlFor} from '../sanity/lib/image';
+import { Course } from '../types/sharedTypes';
+
 import Link from 'next/link';
 
 type CourseCardProps = {
-  course: {
-    _id: string;
-    slug: String;
-    image: any;
-    title: string;
-    instructorName: string;
-  };
+  course: Course;
 };
 
+const defaultImageUrl = "https://fakeimg.pl/640x360/?text=Default";
+
 function CourseCard({ course }: CourseCardProps) {
+
+  const slug = course.slug?.current || "";
+  const imageUrl = course.image ? urlFor(course.image).width(600).url() : defaultImageUrl;
+  
   return (
     <div className="course-card w-full rounded-lg overflow-hidden">
       <div className="relative pb-[56.25%]">  {/* 16:9 Aspect Ratio */}
-        <Link href={`/courses/${course.slug}`} passHref>
+        <Link href={`/courses/${slug}`} passHref>
           <Image 
-            src={urlFor(course.image).width(600).url() || ''}
+            src={imageUrl}
             alt={course.title}
             layout="fill"
             objectFit="cover"
@@ -29,7 +30,7 @@ function CourseCard({ course }: CourseCardProps) {
         </Link>
       </div>
       <div className="pt-4">
-        <h2 className="text-xl text-white font-bold">{course.instructorName}</h2>
+        <h2 className="text-xl text-white font-bold">{course.instructor}</h2>
         <h2 className="text-md text-white font-bold">{course.title}</h2>
       </div>
   </div>

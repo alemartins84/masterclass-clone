@@ -24,7 +24,15 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'text',
-    }
+    },
+    {
+      name: 'icon',
+      type: 'file',
+      title: 'SVG Icon',
+      options: {
+        accept: 'image/svg+xml',
+      },
+    },
     // You can add more fields like images, icons, etc.
   ]
 })
